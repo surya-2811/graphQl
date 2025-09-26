@@ -1,4 +1,4 @@
-const {gql} = require("apollo-server");
+const { gql } = require("apollo-server");
 
 const typeDefs = gql`
 type User{
@@ -22,6 +22,7 @@ enum Nationality {
     INDIA
     GERMANY
     CHILE
+    ROME
 }
 
 type Movie{
@@ -30,6 +31,22 @@ type Movie{
     yearOfPublication: Int!
     isInTheaters: Boolean!
 }
+
+input CreateUserInput{
+    name: String!
+    username: String!
+    age: Int!
+    nationality: Nationality = ROME
+}
+input updateUsernameInput{
+    id:ID!
+    username: String!
+}
+type Mutation{
+    createUser(input: CreateUserInput!): User
+    updateUsername(input: updateUsernameInput!): User
+    deleteUser(id: ID!): User
+}
 `;
 
-module.exports ={typeDefs}
+module.exports = { typeDefs }
